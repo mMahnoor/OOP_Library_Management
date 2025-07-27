@@ -25,9 +25,9 @@ class Book:
                     book.__availability=False
                     print('Book borrowed succesfully!')
                 else:
-                    print('The book id ', book_id, ' is not available.')
+                    print('The Book ID ', book_id, ' is not available.')
                 return
-        print('Invalid book ID!')
+        print('Invalid Book ID!')
     
     def return_book(self, book_id):
         lib = Library()
@@ -37,7 +37,7 @@ class Book:
                     book.__availability=True
                     print('Book returned succesfully!')
                 else:
-                    print('Book is already returned')
+                    print('The Book not yet borrowed!')
                 return
         print('Invalid Book ID!')
 
@@ -71,9 +71,9 @@ while True:
     if op==1:
         book1.view_book_info()
     elif op==2: 
-        id = int(input('Please enter book id: '))
+        id = int(input('Please enter Book ID: '))
         book1.borrow_book(id)
     elif op==3:
-        id = int(input('Please enter book id: '))
+        id = int(input('Please enter Book ID: '))
         book1.return_book(id)
     else: break
