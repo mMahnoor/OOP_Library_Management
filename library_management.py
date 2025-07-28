@@ -9,17 +9,18 @@ class Library:
         self.book_list.append(book)
 
 # Creating Book class
-class Book:
-    def __init__(self, book_id, title, author, availability, *args, **kargs):
+class Book(Library):
+    def __init__(self, book_id, title, author, availability):
         # Initializing attributes
         self.__book_id = book_id
         self.__title = title
         self.__author = author
         self.__availability = availability
+        self.entry_book(self)
 
+    @classmethod
     def borrow_book(self, book_id):
-        lib = Library()
-        for book in lib.book_list:
+        for book in self.book_list:
             if(book.__book_id==book_id):
                 if book.__availability:
                     book.__availability=False
@@ -28,10 +29,9 @@ class Book:
                     print('The Book ID ', book_id, ' is not available.')
                 return
         print('Invalid Book ID!')
-    
+    @classmethod
     def return_book(self, book_id):
-        lib = Library()
-        for book in lib.book_list:
+        for book in self.book_list:
             if(book.__book_id==book_id):
                 if not book.__availability:
                     book.__availability=True
@@ -40,11 +40,10 @@ class Book:
                     print('The Book not yet borrowed!')
                 return
         print('Invalid Book ID!')
-
+    @classmethod
     def view_book_info(self):
-        lib = Library()
         print('<<<<<<<< Book List >>>>>>>>')
-        for book in lib.book_list:
+        for book in self.book_list:
             print(f'{book.__book_id}) Title: {book.__title}, Author: {book.__author}, Availability: {book.__availability}')
 
 
@@ -54,13 +53,6 @@ book3 = Book(103, 'Great Expectations', 'Charles Dickens', True)
 book4 = Book(104, 'TO KILL A MOCKINGBIRD', 'HARPER LEE', True)
 book5 = Book(105, 'Crime and Punishment', 'Fyodor Dostoyevsky', True)
 
-lib = Library()
-lib.entry_book(book1)
-lib.entry_book(book2)
-lib.entry_book(book3)
-lib.entry_book(book4)
-lib.entry_book(book5)
-
 while True:
     print('---------****** Welcome to the Library ******----------')
     print('1. View All Books')
@@ -69,11 +61,11 @@ while True:
     print('4. Exit')
     op = int(input('Please Select an Option from above: '))
     if op==1:
-        book1.view_book_info()
+        Book.view_book_info()
     elif op==2: 
         id = int(input('Please enter Book ID: '))
-        book1.borrow_book(id)
+        Book.borrow_book(id)
     elif op==3:
         id = int(input('Please enter Book ID: '))
-        book1.return_book(id)
+        Book.return_book(id)
     else: break
